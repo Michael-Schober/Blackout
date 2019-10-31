@@ -1,7 +1,8 @@
-package blackout.oauth.config;
+package oauth.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,11 +13,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
@@ -25,9 +24,6 @@ import org.springframework.security.oauth2.provider.request.DefaultOAuth2Request
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-
-import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 
 @Configuration
 public class ServerConfig extends AuthorizationServerConfigurerAdapter
@@ -112,11 +108,22 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter
         dataSoruce.setPassword(env.getProperty("jdbc.pass"));
         return dataSoruce;
     }
+    @Primary
     @Bean
-    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource)
+    public DataSource dataSourceMain()
+    {
+        DriverManagerDataSource dataSoruce = new DriverManagerDataSource();
+        dataSoruce.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
+        dataSoruce.setUrl(env.getProperty("spring.datasource.url"));
+        dataSoruce.setUsername(env.getProperty("spring.datasource.username"));
+        dataSoruce.setPassword(env.getProperty("spring.datasource.password"));
+        return dataSoruce;
+    }
+    @Bean
+    public DataSourceInitializer dataSourceInitializer()
     {
         final DataSourceInitializer initializer = new DataSourceInitializer();
-        initializer.setDataSource(dataSource);
+        initializer.setDataSource(dataSource());
         initializer.setDatabasePopulator(databasePopulator());
         return initializer;
     }
