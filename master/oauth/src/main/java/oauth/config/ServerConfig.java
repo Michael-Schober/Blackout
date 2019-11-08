@@ -21,9 +21,14 @@ import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenStoreUserApprovalHandler;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import java.util.Arrays;
+
 
 @Configuration
 public class ServerConfig extends AuthorizationServerConfigurerAdapter
@@ -38,9 +43,13 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception
     {
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter(), tokenEnhancer()));
+
+
         endpoints
                 .tokenStore(tokenStore())
-                .tokenEnhancer(accessTokenConverter())
+                .tokenEnhancer(tokenEnhancer())
                 .userApprovalHandler(userApprovalHandler(tokenStore()));
     }
 
@@ -61,6 +70,7 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter
     {
         return new JwtTokenStore(accessTokenConverter());
     }
+    public TokenEnhancer tokenEnhancer() {return new CustomTokenEnhancer(); }
 
     @Bean
     public JwtAccessTokenConverter accessTokenConverter()
