@@ -49,7 +49,7 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter
 
         endpoints
                 .tokenStore(tokenStore())
-                .tokenEnhancer(tokenEnhancer())
+                .tokenEnhancer(tokenEnhancerChain)
                 .userApprovalHandler(userApprovalHandler(tokenStore()));
     }
 
