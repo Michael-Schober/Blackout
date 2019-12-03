@@ -81,6 +81,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>Blackout</groupId>
+            <artifactId>shared</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <systemPath>${basedir}/../Jars/shared-0.0.1-SNAPSHOT.jar</systemPath>
+        </dependency>
     </dependencies>
 
 

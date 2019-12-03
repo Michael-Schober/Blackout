@@ -16,7 +16,7 @@ public class Game
     private Long Id;
 
     @ManyToOne
-    @JoinColumn(name="id", table = "user")
+    @JoinColumn(name="executive")
     private User Executive;
 
     @Column

@@ -12,3 +12,8 @@ INSERT INTO oauth_client_details
 VALUES
 	('CodeID', '$2a$10$V.4NamMx3gFSw/MpH.LZt.qw0LJqCkwEarrq2fYwUJWBf5XmpYka.', 'read,hello',
 	'authorization_code,code', 'http://localhost:4200/auth', 'SERVER', 36000, 36000, null, false);
+
+Insert into users
+    (username, password, authorities, accountExpired, accountLocked, disabled)
+VALUES
+    ('john', '$2a$10$jiMfbXYcQ7ydJEwt1/m.l.hW87JdIDA188AGszmURORvH9mxbqmHa', '', false ,false ,false);

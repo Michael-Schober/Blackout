@@ -109,6 +109,7 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter
     private Environment env;
 
     @Bean
+    @Primary
     public DataSource dataSource()
     {
         DriverManagerDataSource dataSoruce = new DriverManagerDataSource();
@@ -118,17 +119,7 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter
         dataSoruce.setPassword(env.getProperty("jdbc.pass"));
         return dataSoruce;
     }
-    @Primary
-    @Bean
-    public DataSource dataSourceMain()
-    {
-        DriverManagerDataSource dataSoruce = new DriverManagerDataSource();
-        dataSoruce.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
-        dataSoruce.setUrl(env.getProperty("spring.datasource.url"));
-        dataSoruce.setUsername(env.getProperty("spring.datasource.username"));
-        dataSoruce.setPassword(env.getProperty("spring.datasource.password"));
-        return dataSoruce;
-    }
+
     @Bean
     public DataSourceInitializer dataSourceInitializer()
     {

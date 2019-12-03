@@ -69,3 +69,14 @@ create table if not exists ClientDetails (
  additionalInformation VARCHAR(4096),
  autoApproveScopes VARCHAR(255)
 );
+
+drop table if exists users;
+create table if not exists Users (
+    id bigint primary key auto_increment,
+    username varchar(255),
+    password varchar(255),
+    authorities varchar(255),
+    accountExpired bool,
+    accountLocked bool,
+    disabled bool
+);
