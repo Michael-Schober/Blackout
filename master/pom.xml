@@ -9,9 +9,7 @@
         <module>oauth</module>
         <module>proxy</module>
         <module>registration</module>
-        <module>game</module>
-        <module>models</module>
-        <module>model</module>
+        <module>shared</module>
     </modules>
     <groupId>Blackout</groupId>
     <artifactId>master</artifactId>
