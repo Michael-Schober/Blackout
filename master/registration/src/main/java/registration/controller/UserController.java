@@ -12,13 +12,13 @@ public class UserController
     @Autowired
     private UserClient userClient;
 
-    @GetMapping("/register/me")
+    @GetMapping("/me")
     public User getUser()
     {
         return userClient.getUser(1L);
     }
 
-    @PostMapping("register")
+    @PostMapping("")
     public User saveNewUser(@RequestBody User user)
     {
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));

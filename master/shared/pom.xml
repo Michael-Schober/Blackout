@@ -10,7 +10,7 @@
     </parent>
     <groupId>Blackout</groupId>
     <artifactId>shared</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1</version>
     <name>shared</name>
     <description>Shared Models</description>
 

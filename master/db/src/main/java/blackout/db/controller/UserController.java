@@ -1,6 +1,6 @@
 package blackout.db.controller;
 
-import blackout.db.model.User;
+import Blackout.shared.model.OauthUser;
 import blackout.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +12,13 @@ public class UserController
     private UserRepository userRepository;
 
     @GetMapping("/user/{id}")
-    public User getYourUser(@PathVariable(name = "id") Long id)
+    public OauthUser getYourUser(@PathVariable(name = "id") Long id)
     {
         return userRepository.findById(id).get();
     }
 
     @PostMapping("/user")
-    public User addNewUser(@RequestBody User user)
+    public OauthUser addNewUser(@RequestBody OauthUser user)
     {
         user.setAccountExpired(false);
         user.setAccountLocked(false);

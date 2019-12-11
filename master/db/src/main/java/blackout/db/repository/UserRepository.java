@@ -1,9 +1,9 @@
 package blackout.db.repository;
 
-import blackout.db.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import Blackout.shared.model.OauthUser;
 
-public interface UserRepository extends JpaRepository<User, Long>
+public interface UserRepository extends JpaRepository<OauthUser, Long>
 {
-    public User getByUsername(String username);
+    public OauthUser getByUsername(String username);
 }

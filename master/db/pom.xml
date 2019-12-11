@@ -48,6 +48,14 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>Blackout</groupId>
+            <artifactId>shared</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../Jars/shared-1.jar</systemPath>
+        </dependency>
     </dependencies>
 
 

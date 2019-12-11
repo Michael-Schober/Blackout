@@ -1,13 +1,11 @@
 package oauth.auth;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Repository;
-import shared.model.Users;
+import Blackout.shared.model.OauthUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-@EntityScan("shared.model.Users")
-public interface UserRepository extends JpaRepository<Users, Long>
+public interface UserRepository extends JpaRepository<OauthUser, Long>
 {
-    Users findByUsername(String username);
+    OauthUser findByUsername(String username);
 }

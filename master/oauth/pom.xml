@@ -85,9 +85,9 @@
         <dependency>
             <groupId>Blackout</groupId>
             <artifactId>shared</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1</version>
             <scope>system</scope>
-            <systemPath>${basedir}/../Jars/shared-0.0.1-SNAPSHOT.jar</systemPath>
+            <systemPath>${basedir}/../Jars/shared-1.jar</systemPath>
         </dependency>
     </dependencies>
 

@@ -119,7 +119,7 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("shared.model");
+        factory.setPackagesToScan("Blackout.shared.model");
         factory.setDataSource(dataSource());
         factory.afterPropertiesSet();
 

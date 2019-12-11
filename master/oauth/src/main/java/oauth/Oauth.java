@@ -17,6 +17,7 @@ import java.beans.PropertyVetoException;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableAuthorizationServer
+@EntityScan("Blackout.shared.model.OauthUser")
 public class Oauth
 {
     public static void main(String[] args) {

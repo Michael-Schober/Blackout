@@ -1,6 +1,6 @@
 package oauth.auth;
 
-import shared.model.Users;
+import Blackout.shared.model.OauthUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,10 +8,10 @@ import java.util.Collection;
 
 public class MyPrincipal implements UserDetails
 {
-    private Users user;
+    private OauthUser user;
 
 
-    public MyPrincipal(Users user)
+    public MyPrincipal(OauthUser user)
     {
         this.user = user;
     }
