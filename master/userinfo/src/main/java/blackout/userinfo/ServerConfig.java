@@ -10,9 +10,9 @@ public class ServerConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        http.cors().and()
+        http    .cors().and()
                 .authorizeRequests()
-                .mvcMatchers("/app").hasAuthority("SCOPE_read_name")
+                .mvcMatchers("/app/*", "/app").hasAuthority("SCOPE_read_name")
                 .anyRequest().denyAll()
                 .and()
                 .oauth2ResourceServer().jwt();

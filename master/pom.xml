@@ -8,6 +8,7 @@
         <module>eureka</module>
         <module>proxy</module>
         <module>shared</module>
+        <module>userinfo</module>
     </modules>
     <groupId>Blackout</groupId>
     <artifactId>master</artifactId>
