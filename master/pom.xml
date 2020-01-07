@@ -6,9 +6,7 @@
     <modules>
         <module>config_server</module>
         <module>eureka</module>
-        <module>oauth</module>
         <module>proxy</module>
-        <module>registration</module>
         <module>shared</module>
     </modules>
     <groupId>Blackout</groupId>
