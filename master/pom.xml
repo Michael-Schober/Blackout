@@ -9,6 +9,7 @@
         <module>proxy</module>
         <module>shared</module>
         <module>userinfo</module>
+        <module>db</module>
     </modules>
     <groupId>Blackout</groupId>
     <artifactId>master</artifactId>
