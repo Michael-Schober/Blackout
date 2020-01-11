@@ -1,9 +1,8 @@
 package blackout.userinfo.controller;
 
 import Blackout.shared.model.Appointment;
-import blackout.userinfo.feignClients.AppointmentClient;
+import blackout.userinfo.feignClients.DBClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 public class AppointmentController
 {
     @Autowired
-    AppointmentClient appointmentClient;
+    DBClient appointmentClient;
 
     @GetMapping("/app")
     public List<Appointment> getAll()
@@ -24,7 +23,6 @@ public class AppointmentController
     @GetMapping("/app/{id}")
     public Appointment getById(@PathVariable int id)
     {
-        System.out.println(SecurityContextHolder.getContextHolderStrategy().getContext().getAuthentication().getName());
         return appointmentClient.getById(id);
     }
 

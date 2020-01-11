@@ -1,14 +1,16 @@
 package Blackout.shared.model;
 
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class User
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    public String u_id;
 
-    @Column
-    private String username;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "userSet")
+    public Set<Role> roles;
 }
