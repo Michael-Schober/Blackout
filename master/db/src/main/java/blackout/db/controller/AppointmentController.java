@@ -21,7 +21,11 @@ public class AppointmentController
     }
 
     @GetMapping("/{id}")
-    public Appointment getById(@PathVariable int id) { return appointmentRepo.findById(id).get(); }
+    public Appointment getById(@PathVariable int id)
+    {
+
+        return appointmentRepo.findById(id).get();
+    }
 
     @PostMapping("")
     public Appointment createNew(@RequestBody Appointment appointment)
