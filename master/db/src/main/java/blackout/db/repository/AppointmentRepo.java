@@ -1,7 +1,7 @@
 package blackout.db.repository;
 
+import Blackout.shared.model.appoint.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
-import Blackout.shared.model.*;
 
 public interface AppointmentRepo extends JpaRepository<Appointment, Integer>
 {

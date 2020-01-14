@@ -1,6 +1,6 @@
 package blackout.db.controller;
 
-import Blackout.shared.model.Appointment;
+import Blackout.shared.model.appoint.Appointment;
 import blackout.db.repository.AppointmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

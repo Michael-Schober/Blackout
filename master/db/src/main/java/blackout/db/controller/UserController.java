@@ -1,6 +1,6 @@
 package blackout.db.controller;
 
-import Blackout.shared.model.User;
+import Blackout.shared.model.user.User;
 import blackout.db.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
