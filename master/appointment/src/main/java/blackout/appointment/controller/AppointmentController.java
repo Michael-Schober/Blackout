@@ -6,10 +6,8 @@ import blackout.appointment.feignClients.UserClient;
 import blackout.appointment.repository.AppointmentRepo;
 import blackout.appointment.repository.AttendeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,18 +34,16 @@ public class AppointmentController
     public Appointment newAppointment(@RequestBody Appointment appointment)
     {
 
-
-        OAuth2Authentication
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
+        Jwt j = (Jwt)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String u_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        /*if(userClient.checkUser(u_id))
+        if(userClient.checkUser(u_id, "Bearer " + j.getTokenValue()))
         {
             Appointment retApp = appointmentRepo.save(appointment);
             AttendeeList attendeeList = new AttendeeList(); attendeeList.setAt_id(u_id); attendeeList.setRole(1); attendeeList.setAp_id(retApp);
             attendeeRepo.save(attendeeList);
             retApp.getAttendeeLists().add(attendeeList);
             return appointmentRepo.save(retApp);
-        }*/
+        }
         return null;
     }
 }
