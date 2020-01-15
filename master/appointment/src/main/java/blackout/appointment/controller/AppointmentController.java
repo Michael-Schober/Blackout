@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,8 +27,9 @@ public class AppointmentController
     @GetMapping("/appointment")
     public List<Appointment> getAll()
     {
+        String u_id =SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return null;
+        return appointmentRepo.getApp(u_id);
     }
 
     @PostMapping("/appointment")
@@ -41,7 +43,16 @@ public class AppointmentController
             Appointment retApp = appointmentRepo.save(appointment);
             AttendeeList attendeeList = new AttendeeList(); attendeeList.setAt_id(u_id); attendeeList.setRole(1); attendeeList.setAp_id(retApp);
             attendeeRepo.save(attendeeList);
-            retApp.getAttendeeLists().add(attendeeList);
+            if(retApp.getAttendeeLists() != null)
+            {
+                retApp.getAttendeeLists().add(attendeeList);
+            }
+            else
+            {
+                List<AttendeeList> newList= new ArrayList<AttendeeList>();
+                newList.add(attendeeList);
+                retApp.setAttendeeLists(newList);
+            }
             return appointmentRepo.save(retApp);
         }
         return null;

@@ -1,5 +1,6 @@
 package Blackout.shared.model.appoint;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,6 @@ public class AttendeeList
     @Id
     @ManyToOne
     @JoinColumn(name = "ap_id")
+    @JsonBackReference
     public Appointment ap_id;
 }

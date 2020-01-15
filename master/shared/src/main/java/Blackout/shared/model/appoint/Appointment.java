@@ -1,5 +1,6 @@
 package Blackout.shared.model.appoint;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,5 +29,6 @@ public class Appointment
     private String details;
 
     @OneToMany(mappedBy = "ap_id")
+    @JsonManagedReference
     private  List<AttendeeList> attendeeLists;
 }
