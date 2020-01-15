@@ -57,11 +57,10 @@
 
         <!-- Model dep. -->
         <dependency>
-            <groupId>Blackout</groupId>
+            <groupId>blackout</groupId>
             <artifactId>shared</artifactId>
+            <scope>compile</scope>
             <version>1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../Jars/shared-1.jar</systemPath>
         </dependency>
 
         <!-- JPA dep. -->

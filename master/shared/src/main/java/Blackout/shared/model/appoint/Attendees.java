@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttendeeList
+public class Attendees
 {
     @Id
     public String at_id;

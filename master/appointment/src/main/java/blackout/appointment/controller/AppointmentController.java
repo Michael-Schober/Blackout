@@ -1,7 +1,7 @@
 package blackout.appointment.controller;
 
 import Blackout.shared.model.appoint.Appointment;
-import Blackout.shared.model.appoint.AttendeeList;
+import Blackout.shared.model.appoint.Attendees;
 import blackout.appointment.feignClients.UserClient;
 import blackout.appointment.repository.AppointmentRepo;
 import blackout.appointment.repository.AttendeeRepo;
@@ -35,23 +35,22 @@ public class AppointmentController
     @PostMapping("/appointment")
     public Appointment newAppointment(@RequestBody Appointment appointment)
     {
-
         Jwt j = (Jwt)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String u_id = SecurityContextHolder.getContext().getAuthentication().getName();
         if(userClient.checkUser(u_id, "Bearer " + j.getTokenValue()))
         {
             Appointment retApp = appointmentRepo.save(appointment);
-            AttendeeList attendeeList = new AttendeeList(); attendeeList.setAt_id(u_id); attendeeList.setRole(1); attendeeList.setAp_id(retApp);
-            attendeeRepo.save(attendeeList);
-            if(retApp.getAttendeeLists() != null)
+            Attendees Attendees = new Attendees(); Attendees.setAt_id(u_id); Attendees.setRole(1); Attendees.setAp_id(retApp);
+            attendeeRepo.save(Attendees);
+            if(retApp.getAttendees() != null)
             {
-                retApp.getAttendeeLists().add(attendeeList);
+                retApp.getAttendees().add(Attendees);
             }
             else
             {
-                List<AttendeeList> newList= new ArrayList<AttendeeList>();
-                newList.add(attendeeList);
-                retApp.setAttendeeLists(newList);
+                List<Attendees> newList= new ArrayList<Attendees>();
+                newList.add(Attendees);
+                retApp.setAttendees(newList);
             }
             return appointmentRepo.save(retApp);
         }

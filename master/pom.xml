@@ -10,7 +10,6 @@
         <module>shared</module>
         <module>userinfo</module>
         <module>appointment</module>
-        <module>db</module>
     </modules>
     <groupId>Blackout</groupId>
     <artifactId>master</artifactId>
@@ -20,6 +19,7 @@
 
     <properties>
         <java.version>13</java.version>
+        <jar>enabled</jar>
     </properties>
 
 </project>

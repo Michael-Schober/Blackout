@@ -30,5 +30,5 @@ public class Appointment
 
     @OneToMany(mappedBy = "ap_id")
     @JsonManagedReference
-    private  List<AttendeeList> attendeeLists;
+    private  List<Attendees> attendees;
 }
