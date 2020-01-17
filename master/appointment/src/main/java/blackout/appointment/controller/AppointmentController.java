@@ -35,6 +35,15 @@ public class AppointmentController
     @PostMapping("/appointment")
     public Appointment newAppointment(@RequestBody Appointment appointment)
     {
+        if(appointmentRepo.existsById(appointment.getAp_id()))
+        {
+            Appointment a = appointmentRepo.getOne(appointment.getAp_id());
+
+            a.setDetails(appointment.getDetails());
+            a.setTitle(appointment.getTitle());
+            return appointmentRepo.save(a);
+        }
+
         Jwt j = (Jwt)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String u_id = SecurityContextHolder.getContext().getAuthentication().getName();
         if(userClient.checkUser(u_id, "Bearer " + j.getTokenValue()))
