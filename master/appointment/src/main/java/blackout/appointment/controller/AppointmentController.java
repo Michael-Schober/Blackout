@@ -32,37 +32,24 @@ public class AppointmentController
         return appointmentRepo.getApp(u_id);
     }
 
+    @PutMapping("/appointment")
+    public Appointment updateAppointment(@RequestBody Appointment appointment)
+    {
+        Appointment toUpdate = appointmentRepo.getOne(appointment.getAp_id());
+        toUpdate.setTitle(appointment.getTitle());
+        toUpdate.setDetails(appointment.getDetails());
+        return appointmentRepo.save(toUpdate);
+    }
+
     @PostMapping("/appointment")
     public Appointment newAppointment(@RequestBody Appointment appointment)
     {
-        if(appointmentRepo.existsById(appointment.getAp_id()))
-        {
-            Appointment a = appointmentRepo.getOne(appointment.getAp_id());
-
-            a.setDetails(appointment.getDetails());
-            a.setTitle(appointment.getTitle());
-            return appointmentRepo.save(a);
-        }
-
         Jwt j = (Jwt)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String u_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        if(userClient.checkUser(u_id, "Bearer " + j.getTokenValue()))
-        {
-            Appointment retApp = appointmentRepo.save(appointment);
-            Attendees Attendees = new Attendees(); Attendees.setAt_id(u_id); Attendees.setRole(1); Attendees.setAp_id(retApp);
-            attendeeRepo.save(Attendees);
-            if(retApp.getAttendees() != null)
-            {
-                retApp.getAttendees().add(Attendees);
-            }
-            else
-            {
-                List<Attendees> newList= new ArrayList<Attendees>();
-                newList.add(Attendees);
-                retApp.setAttendees(newList);
-            }
-            return appointmentRepo.save(retApp);
-        }
-        return null;
+
+        Appointment retApp = appointmentRepo.save(appointment);
+        Attendees attendees = new Attendees(); attendees.setAt_id(u_id); attendees.setRole(1); attendees.setAp_id(retApp);
+        attendeeRepo.save(attendees);
+        return retApp;
     }
 }
