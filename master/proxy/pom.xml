@@ -5,12 +5,11 @@
     <parent>
         <groupId>Blackout</groupId>
         <artifactId>master</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>Blackout</groupId>
     <artifactId>proxy</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1</version>
     <name>proxy</name>
     <description>Proxy</description>
 
