@@ -6,55 +6,47 @@
         <groupId>Blackout</groupId>
         <artifactId>master</artifactId>
         <version>1</version>
+        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>appointment</artifactId>
-    <version>1</version>
-    <name>appointment</name>
-    <description>Demo project for Spring Boot</description>
+    <artifactId>shop</artifactId>
+    <version>0.1</version>
+    <name>shop</name>
+    <description>ShopInfo</description>
 
     <dependencies>
-        <!-- Boot dep. -->
+
+        <!-- Security dep. -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-resource-server</artifactId>
+        </dependency>
+
+
+        <!-- Web -->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+
         <!-- Cloud dep. -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
 
-        <!-- Security dep. -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-resource-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-jose</artifactId>
-        </dependency>
-
-
-        <!-- Model dep. -->
-        <dependency>
-            <groupId>blackout</groupId>
-            <artifactId>shared</artifactId>
-            <scope>compile</scope>
-            <version>1</version>
-        </dependency>
 
         <!-- JPA dep. -->
         <dependency>
@@ -65,6 +57,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Model dep. -->
+        <dependency>
+            <groupId>blackout</groupId>
+            <artifactId>shared</artifactId>
+            <scope>compile</scope>
+            <version>1</version>
         </dependency>
     </dependencies>
 
