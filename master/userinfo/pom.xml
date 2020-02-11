@@ -74,9 +74,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <layout>LAYERED_JAR</layout>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -88,19 +85,24 @@
                         <image>openjdk:13-alpine</image>
                     </from>
                     <to>
-                        <image>http://192.168.56.12:5000</image>
+                        <image>docker_userinfo</image>
                         <tags>
                             <tag>
                                 latest
                             </tag>
                         </tags>
                     </to>
+                    <dockerClient>
+                        <environment>
+                            <DOCKER_HOST>192.168.56.12:5000</DOCKER_HOST>
+                        </environment>
+                    </dockerClient>
                 </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>build</goal>
+                            <goal>dockerBuild</goal>
                         </goals>
                     </execution>
                 </executions>
