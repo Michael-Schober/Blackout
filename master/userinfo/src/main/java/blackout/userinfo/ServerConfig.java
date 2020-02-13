@@ -12,6 +12,7 @@ public class ServerConfig extends WebSecurityConfigurerAdapter
     {
         http    .cors().and()
                 .authorizeRequests()
+                .mvcMatchers("/actuator/**").permitAll()
                 .mvcMatchers("/**").hasAuthority("SCOPE_read_name")
                 .anyRequest().denyAll()
                 .and()

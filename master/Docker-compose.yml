@@ -24,32 +24,11 @@ services:
       - config-server
     ports:
     - 9150
-    links:
-      - db
-      - proxy
-      - eureka
-    environment:
-      - "eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka"
-  shop:
-    image: docker_shop
-    depends_on:
-      - eureka
-      - proxy
-      - db
-      - config-server
-    ports:
-      - 9150
-    links:
-      - db
-      - proxy
-      - eureka
     environment:
       - "eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka"
   config-server:
     image: docker_config-server
     depends_on:
-      - eureka
-    links:
       - eureka
     ports:
     - 8888
@@ -63,5 +42,16 @@ services:
       MYSQL_ROOT_PASSWORD: 'password'
     volumes:
     - database:/var/lib/mysql
+  prometheus:
+    image: prom/prometheus
+    ports:
+    - 9090:9090
+    volumes:
+    - /home/michi/shared:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
 volumes:
   database:
