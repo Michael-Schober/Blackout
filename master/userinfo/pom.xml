@@ -104,7 +104,7 @@
                     </to>
                     <dockerClient>
                         <environment>
-                            <DOCKER_HOST>192.168.56.12:5000</DOCKER_HOST>
+                            <DOCKER_HOST>37.252.191.48:5000</DOCKER_HOST>
                         </environment>
                     </dockerClient>
                 </configuration>
