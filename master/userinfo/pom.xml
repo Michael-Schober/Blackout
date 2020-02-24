@@ -6,7 +6,7 @@
         <groupId>Blackout</groupId>
         <artifactId>master</artifactId>
         <version>1</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../</relativePath>
     </parent>
     <artifactId>userinfo</artifactId>
     <version>1</version>
@@ -96,11 +96,6 @@
                     </from>
                     <to>
                         <image>docker_userinfo</image>
-                        <tags>
-                            <tag>
-                                latest
-                            </tag>
-                        </tags>
                     </to>
                     <containerizingMode>packaged</containerizingMode>
                     <dockerClient>

@@ -42,11 +42,6 @@
                     </from>
                     <to>
                         <image>docker_proxy</image>
-                        <tags>
-                            <tag>
-                                latest
-                            </tag>
-                        </tags>
                     </to>
                     <dockerClient>
                         <environment>

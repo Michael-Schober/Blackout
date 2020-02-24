@@ -1,14 +1,13 @@
 package Blackout.shared.model.shop;
 
+import Blackout.shared.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -18,8 +17,19 @@ public class Shop
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
+    private long s_id;
 
     private String name;
+    private String city;
+    private String district;
     private String street;
+
+    @Temporal(TemporalType.TIME)
+    private Date opening;
+    @Temporal(TemporalType.TIME)
+    private Date closing;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "u_id")
+    private User owner;
 }
