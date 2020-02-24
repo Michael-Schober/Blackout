@@ -102,6 +102,7 @@
                             </tag>
                         </tags>
                     </to>
+                    <containerizingMode>packaged</containerizingMode>
                     <dockerClient>
                         <environment>
                             <DOCKER_HOST>37.252.191.48:5000</DOCKER_HOST>
