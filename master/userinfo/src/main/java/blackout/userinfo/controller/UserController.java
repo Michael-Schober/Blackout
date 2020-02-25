@@ -36,9 +36,9 @@ public class UserController
     @PostMapping("/user")
     public User createUser(@RequestBody User user)
     {
-        if(user.u_id != null && userRepo.existsById(user.u_id))
+        if(user.getU_id() != null && userRepo.existsById(user.getU_id()))
         {
-            return userRepo.findById(user.u_id).get();
+            return userRepo.findById(user.getU_id()).get();
         }
         return userRepo.save(user);
     }

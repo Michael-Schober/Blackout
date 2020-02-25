@@ -17,8 +17,4 @@ public class User
 {
     @Id
     private String u_id;
-
-    @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Shop> shops;
-
 }

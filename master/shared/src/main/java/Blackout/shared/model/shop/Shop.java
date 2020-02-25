@@ -29,7 +29,5 @@ public class Shop
     @Temporal(TemporalType.TIME)
     private Date closing;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "u_id")
-    private User owner;
+    private String owner;
 }
