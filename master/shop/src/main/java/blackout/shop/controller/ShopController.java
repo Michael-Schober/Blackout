@@ -3,11 +3,14 @@ package blackout.shop.controller;
 import Blackout.shared.model.shop.Shop;
 import blackout.shop.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class ShopController
 {
     @Autowired
@@ -25,13 +28,14 @@ public class ShopController
         return shopRepository.getOne(id);
     }
 
-    @PostMapping("/shop")
+    @PostMapping("/shop/admin")
     public Shop createNew(@RequestBody Shop shop)
     {
+        shop.setOwner(SecurityContextHolder.getContext().getAuthentication().getName());
         return shopRepository.save(shop);
     }
 
-    @PutMapping("/shop/{id}")
+    @PutMapping("/shop/admin/{id}")
     public Shop updateShop(@RequestBody Shop shop)
     {
         if(shopRepository.existsById(shop.getS_id()))

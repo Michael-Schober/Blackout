@@ -6,9 +6,8 @@
         <groupId>Blackout</groupId>
         <artifactId>master</artifactId>
         <version>1</version>
-        <relativePath>../</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>Blackout</groupId>
     <artifactId>shop</artifactId>
     <version>0.1</version>
     <name>shop</name>
@@ -58,7 +57,14 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-oauth2-jose</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-security-adapter</artifactId>
+        </dependency>
 
         <!-- Model dep. -->
         <dependency>
