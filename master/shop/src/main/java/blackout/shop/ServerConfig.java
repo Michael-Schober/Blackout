@@ -1,71 +1,65 @@
 package blackout.shop;
 
-import org.keycloak.adapters.KeycloakConfigResolver;
-import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
-import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
-import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
-import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
-import org.keycloak.adapters.springsecurity.filter.KeycloakAuthenticationProcessingFilter;
-import org.keycloak.adapters.springsecurity.filter.KeycloakPreAuthActionsFilter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
-import org.springframework.security.core.session.SessionRegistryImpl;
-import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
-@KeycloakConfiguration
-public class ServerConfig extends KeycloakWebSecurityConfigurerAdapter
+import java.util.*;
+import java.util.stream.Collectors;
+
+@Configuration
+public class ServerConfig extends WebSecurityConfigurerAdapter
 {
-    @Bean
-    @Override
-    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-        return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
-    }
 
-    @Bean
-    public FilterRegistrationBean keycloakAuthenticationProcessingFilterRegistrationBean(
-            KeycloakAuthenticationProcessingFilter filter) {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(filter);
-        registrationBean.setEnabled(false);
-        return registrationBean;
-    }
-
-    @Bean
-    public FilterRegistrationBean keycloakPreAuthActionsFilterRegistrationBean(
-            KeycloakPreAuthActionsFilter filter) {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(filter);
-        registrationBean.setEnabled(false);
-        return registrationBean;
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        KeycloakAuthenticationProvider keyCloakAuthProvider = keycloakAuthenticationProvider();
-        keyCloakAuthProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
-
-        auth.authenticationProvider(keyCloakAuthProvider);
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        super.configure(http);
-        http    .cors().and()
-                .sessionManagement()
-                .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
-                .and()
+        http
+                .cors().and()
                 .authorizeRequests()
-                .mvcMatchers("/shop*").hasAuthority("SCOPE_shop")
-                .mvcMatchers("/shop/admin*").hasRole("ADMIN")
-                .anyRequest().denyAll()
+                .mvcMatchers("/shop").hasAuthority("SCOPE_shop")
+                .mvcMatchers("/shop/admin").hasRole("ADMIN")
                 .and()
-                .oauth2ResourceServer().jwt();
+                .oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
+    }
+
+
+
+    private JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter(new KeycloakRealmRoleConverter());
+        return converter;
+    }
+
+    class KeycloakRealmRoleConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+        @Override
+        public Collection<GrantedAuthority> convert(Jwt jwt) {
+            final Map<String, Object> realmAccess = (Map<String, Object>) jwt.getClaims().get("realm_access");
+
+            String scopes_unf = jwt.getClaim("scope");
+            String scopes[] = scopes_unf.split(" ");
+
+            List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
+
+            auths.addAll(Arrays.stream(scopes)
+                    .map(scope -> "SCOPE_" + scope)
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toList()));
+
+            auths.addAll(((List<String>) realmAccess.get("roles")).stream()
+                    .map(roleName -> "ROLE_" + roleName)
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toList()));
+
+            System.out.println(auths);
+            return auths;
+        }
     }
 }
