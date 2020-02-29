@@ -2,9 +2,9 @@ package blackout.userinfo.repository;
 
 
 import Blackout.shared.model.user.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-public interface UserRepo extends JpaRepository<User, String>
+public interface UserRepo extends ReactiveCrudRepository<User, String>
 {
 
 }
