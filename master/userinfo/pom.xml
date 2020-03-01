@@ -60,11 +60,11 @@
 
 
         <!-- Model dep. -->
-        <dependency>
+        <!-- <dependency>
             <groupId>Blackout</groupId>
             <artifactId>shared</artifactId>
             <version>1</version>
-        </dependency>
+        </dependency> -->
 
         <!-- React dep. -->
         <dependency>
@@ -81,6 +81,10 @@
             <groupId>com.github.jasync-sql</groupId>
             <artifactId>jasync-mysql</artifactId>
             <version>1.0.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
 

@@ -6,7 +6,7 @@
         <groupId>Blackout</groupId>
         <artifactId>master</artifactId>
         <version>1</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../</relativePath>
     </parent>
     <artifactId>shared</artifactId>
     <version>1</version>
@@ -19,6 +19,11 @@
             <artifactId>spring-data-r2dbc</artifactId>
             <version>1.0.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.jasync-sql</groupId>
+            <artifactId>jasync-mysql</artifactId>
+            <version>1.0.14</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -30,6 +35,10 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.10.1</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 
