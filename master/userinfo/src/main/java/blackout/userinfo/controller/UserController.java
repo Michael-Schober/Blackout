@@ -3,8 +3,13 @@ package blackout.userinfo.controller;
 import Blackout.shared.model.user.User;
 import blackout.userinfo.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -15,16 +20,17 @@ public class UserController
     private UserRepo userRepo;
 
     @GetMapping(value = "/user")
-    public Flux<User> getcurrentUser(
-            @RequestParam(value = "page", defaultValue = "0")long page,
-            @RequestParam(value = "size", defaultValue = "1")long size)
+    public Mono<User> getUser()
     {
-        return userRepo.findAll().skip(page*size).take(size);
+        return ReactiveSecurityContextHolder.getContext()
+                    .map(SecurityContext::getAuthentication)
+                    .map(Authentication::getName)
+                    .flatMap(this::getCurrentUser);
     }
 
-    @GetMapping(value = "/user/react")
-    public Flux<User> getstream() {
-        return userRepo.findAll();
+    private Mono<User> getCurrentUser(String id)
+    {
+        return userRepo.findById(id);
     }
 
     @PostMapping(value = "/user")
