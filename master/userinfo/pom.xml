@@ -6,7 +6,6 @@
         <groupId>Blackout</groupId>
         <artifactId>master</artifactId>
         <version>1</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>userinfo</artifactId>
     <version>1</version>
@@ -60,11 +59,11 @@
 
 
         <!-- Model dep. -->
-        <!-- <dependency>
+        <dependency>
             <groupId>Blackout</groupId>
             <artifactId>shared</artifactId>
             <version>1</version>
-        </dependency> -->
+        </dependency>
 
         <!-- React dep. -->
         <dependency>
@@ -82,10 +81,6 @@
             <artifactId>jasync-mysql</artifactId>
             <version>1.0.14</version>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
 
 
     </dependencies>
@@ -96,34 +91,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <!-- <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>2.0.0</version>
-                <configuration>
-                    <from>
-                        <image>openjdk:13-alpine</image>
-                    </from>
-                    <to>
-                        <image>docker_userinfo</image>
-                    </to>
-                    <containerizingMode>packaged</containerizingMode>
-                    <dockerClient>
-                        <environment>
-                            <DOCKER_HOST>37.252.191.48:5000</DOCKER_HOST>
-                        </environment>
-                    </dockerClient>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>dockerBuild</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin> -->
         </plugins>
     </build>
 

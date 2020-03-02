@@ -9,10 +9,10 @@
         <relativePath/>
     </parent>
     <modules>
+        <module>shared</module>
         <module>config_server</module>
         <module>eureka</module>
         <module>proxy</module>
-        <module>shared</module>
         <module>userinfo</module>
         <module>shop</module>
     </modules>

@@ -33,9 +33,6 @@ public class ReactiveConfig extends AbstractR2dbcConfiguration
         return DatabaseClient.create(connectionFactory());
     }
 
-    @Autowired
-    Environment env;
-
     @Bean
     public ConnectionFactory connectionFactory() {
         ConnectionFactoryOptions opts = ConnectionFactoryOptions.builder()

@@ -84,34 +84,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <!-- <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>2.0.0</version>
-                <configuration>
-                    <from>
-                        <image>openjdk:13-alpine</image>
-                    </from>
-                    <to>
-                        <image>docker_shop</image>
-                    </to>
-                    <containerizingMode>packaged</containerizingMode>
-                    <dockerClient>
-                        <environment>
-                            <DOCKER_HOST>37.252.191.48:5000</DOCKER_HOST>
-                        </environment>
-                    </dockerClient>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>dockerBuild</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin> -->
         </plugins>
     </build>
 
