@@ -15,7 +15,6 @@ import java.util.Date;
 @Getter @Setter
 public class Shop
 {
-
     @Id
     private long s_id;
 
