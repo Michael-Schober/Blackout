@@ -1,9 +1,9 @@
 package blackout.shop.repository;
 
 import Blackout.shared.model.shop.Shop;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-public interface ShopRepository extends JpaRepository<Shop, Long>
+public interface ShopRepository extends ReactiveCrudRepository<Shop, Long>
 {
 
 }

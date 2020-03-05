@@ -3,11 +3,10 @@ package blackout.shop.controller;
 import Blackout.shared.model.shop.Shop;
 import blackout.shop.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @CrossOrigin("*")
@@ -16,41 +15,17 @@ public class ShopController
     @Autowired
     private ShopRepository shopRepository;
 
-    @GetMapping("/shop")
-    public List<Shop> getAll()
+    @GetMapping(value = "/shop", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Shop> getAllShops(
+            @RequestParam(value = "page", defaultValue = "0") long page,
+            @RequestParam(value = "size", defaultValue = "10") long size)
     {
-        return shopRepository.findAll();
+        return shopRepository.findAll().skip(page*size).take(size);
     }
 
-    @GetMapping("/shop/{id}")
-    public Shop getById(@PathVariable("id")long id)
+    @PostMapping(value = "/shop/admin", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<Shop> createNewShop(@RequestBody Shop shop)
     {
-        return shopRepository.getOne(id);
-    }
-
-    @PostMapping("/shop/admin")
-    public Shop createNew(@RequestBody Shop shop)
-    {
-        shop.setOwner(SecurityContextHolder.getContext().getAuthentication().getName());
         return shopRepository.save(shop);
-    }
-
-    @PutMapping("/shop/admin/{id}")
-    public Shop updateShop(@RequestBody Shop shop)
-    {
-        if(shopRepository.existsById(shop.getS_id()))
-        {
-            Shop toUpdate = shopRepository.getOne(shop.getS_id());
-            toUpdate.setName(shop.getName());
-            toUpdate.setOwner(shop.getOwner());
-            toUpdate.setCity(shop.getCity());
-            toUpdate.setDistrict(shop.getDistrict());
-            toUpdate.setStreet(shop.getStreet());
-            toUpdate.setClosing(shop.getClosing());
-            toUpdate.setOpening(shop.getOpening());
-
-            return shopRepository.save(toUpdate);
-        }
-        return null;
     }
 }

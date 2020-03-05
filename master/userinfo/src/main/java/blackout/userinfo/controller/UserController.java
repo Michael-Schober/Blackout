@@ -3,12 +3,10 @@ package blackout.userinfo.controller;
 import Blackout.shared.model.user.User;
 import blackout.userinfo.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
-import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -19,7 +17,7 @@ public class UserController
     @Autowired
     private UserRepo userRepo;
 
-    @GetMapping(value = "/user")
+    @GetMapping(value = "/user", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Mono<User> getUser()
     {
         return ReactiveSecurityContextHolder.getContext()
