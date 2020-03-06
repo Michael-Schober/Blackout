@@ -23,6 +23,18 @@ public class ShopController {
             @RequestParam(value = "size", defaultValue = "10") long size) {
         return shopRepository.findAll().skip(page * size).take(size);
     }
+
+    @GetMapping(value = "/shop/owned", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Shop> getOwnedShops()
+    {
+        return ReactiveSecurityContextHolder.getContext()
+                .map(SecurityContext::getAuthentication)
+                .map(Authentication::getName)
+                .flatMap(shopRepository::getByOwner);
+    }
+
+
+
     // Does not Return the right id, it`s always 0. Returns Obeject before it`s inserted, but only if it is successful
     @PostMapping(value = "/shop/admin", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Shop> createNewShop(@RequestBody Shop shop) {
