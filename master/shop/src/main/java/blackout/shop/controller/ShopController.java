@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.function.Function;
+
 @RestController
 @CrossOrigin("*")
 public class ShopController {
@@ -27,26 +29,20 @@ public class ShopController {
     @GetMapping(value = "/shop/owned", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Shop> getOwnedShops()
     {
-        return ReactiveSecurityContextHolder.getContext()
-                .map(SecurityContext::getAuthentication)
-                .map(Authentication::getName)
-                .flatMap(shopRepository::getByOwner);
+        return  getTokenOwner()
+                    .flatMapMany(s -> shopRepository.getByOwner(s));
     }
 
-
-
-    // Does not Return the right id, it`s always 0. Returns Obeject before it`s inserted, but only if it is successful
     @PostMapping(value = "/shop/admin", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Shop> createNewShop(@RequestBody Shop shop) {
-        return ReactiveSecurityContextHolder.getContext()
-                .map(SecurityContext::getAuthentication)
-                .map(Authentication::getName)
-                .map(s -> { shop.setOwner(s); return shop; })
-                .flatMap(this::saveShop);
+        return getTokenOwner()
+                     .flatMap(s -> { shop.setOwner(s); return shopRepository.save(shop); });
     }
 
-    private Mono<Shop> saveShop(Shop s)
+    private Mono<String> getTokenOwner()
     {
-        return shopRepository.save(s);
+        return ReactiveSecurityContextHolder.getContext()
+                .map(SecurityContext::getAuthentication)
+                .map(Authentication::getName);
     }
 }

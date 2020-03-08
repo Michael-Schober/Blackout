@@ -4,7 +4,6 @@ package blackout.shop;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -33,7 +32,8 @@ public class ServerConfig
         http
                 .cors().and()
                 .authorizeExchange()
-                .pathMatchers("/shop*").hasAuthority("SCOPE_shop")
+                .pathMatchers("/shop").hasAuthority("SCOPE_shop")
+                .pathMatchers("/shop/owned").hasAuthority("SCOPE_shop")
                 .pathMatchers("/shop/admin").hasRole("ADMIN")
                 .and()
                 .oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
